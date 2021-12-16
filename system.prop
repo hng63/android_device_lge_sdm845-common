@@ -2,15 +2,8 @@
 # system props for lge sdm845-common
 #
 
-# ART
-dalvik.vm.boot-dex2oat-cpu-set=0,1,2,3,4,5,6,7
-dalvik.vm.boot-dex2oat-threads=8
-dalvik.vm.dex2oat-cpu-set=0,1,2,3,4,5,6,7
-dalvik.vm.dex2oat-filter=everything
-dalvik.vm.dex2oat-threads=8
-dalvik.vm.image-dex2oat-cpu-set=0,1,2,3,4,5,6,7
-dalvik.vm.image-dex2oat-filter=everything
-dalvik.vm.image-dex2oat-threads=8
+# Dalvik
+dalvik.vm.dex2oat64.enabled=true
 
 # Audio
 audio.deep_buffer.media=true
@@ -29,9 +22,6 @@ ro.charger.enable_suspend=true
 
 # CoreSight STM
 persist.debug.coresight.config=stm-events
-
-# Dex2oat
-dalvik.vm.dex2oat64.enabled=true
 
 #Netflix custom property
 ro.netflix.bsp_rev=Q845-05000-1
@@ -116,7 +106,6 @@ ro.media.recorder-max-base-layer-fps = 60
 
 # Serial Console
 ro.console.enable=0
-ro.debuggable=0
 
 # LMK
 ro.lmk.debug=false
