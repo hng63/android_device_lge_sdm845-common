@@ -52,11 +52,6 @@ AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
 USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
 
-# Bluetooth
-#BOARD_HAVE_BLUETOOTH_QCOM := true
-#TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
-#TARGET_USE_QTI_BT_STACK := true
-
 # Build
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
@@ -108,12 +103,8 @@ TARGET_INIT_VENDOR_LIB := //$(COMMON_PATH):libinit_lge_sdm845
 TARGET_RECOVERY_DEVICE_MODULES := libinit_lge_sdm845
 
 # Kernel
-BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem,nosocket
-BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237 ehci-hcd.park=3
-BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=0 service_locator.enable=1
-BOARD_KERNEL_CMDLINE += swiotlb=2048 androidboot.configfs=true
-BOARD_KERNEL_CMDLINE += androidboot.usbcontroller=a600000.dwc3
-BOARD_KERNEL_CMDLINE += loop.max_part=7
+BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0xA84000 androidboot.console=ttyMSM0 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true loop.max_part=7 androidboot.usbcontroller=a600000.dwc3
+BOARD_KERNEL_CMDLINE += androidboot.vbmeta.avb_version=1.0
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 TARGET_KERNEL_ARCH := arm64
 BOARD_KERNEL_BASE := 0x00000000
@@ -166,7 +157,6 @@ BOARD_USES_METADATA_PARTITION := true
 
 # RIL
 ENABLE_VENDOR_RIL_SERVICE := true
-#TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
 TARGET_RIL_VARIANT := caf
 
 # Sepolicy
@@ -203,7 +193,6 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Broken R
-BUILD_BROKEN_PREBUILT_ELF_FILES := true
 BUILD_BROKEN_VINTF_PRODUCT_COPY_FILES := true
 
 # Inherit from the proprietary version

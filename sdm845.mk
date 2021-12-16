@@ -29,7 +29,7 @@ PRODUCT_SOONG_NAMESPACES += \
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(COMMON_PATH)/overlay \
-    $(COMMON_PATH)/overlay-lineage
+    $(COMMON_PATH)/overlay-evolution
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
@@ -38,12 +38,6 @@ include build/make/target/product/iorap_large_memory_config.mk
 # Iorap
 PRODUCT_PACKAGES += \
     iorap-app-startup-runner
-
-# Dex
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    Launcher3QuickStep \
-    Settings \
-    SystemUI
 
 # Properties
 TARGET_ODM_PROP += $(COMMON_PATH)/odm.prop
@@ -56,9 +50,6 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := 560dpi
 PRODUCT_AAPT_PREBUILT_DPI := xxxhdpi xxhdpi xhdpi hdpi
-
-# Apex
-OVERRIDE_PRODUCT_COMPRESSED_APEX := false
 
 # Additional native libraries
 PRODUCT_COPY_FILES += \
@@ -198,7 +189,6 @@ PRODUCT_PACKAGES += \
 # Component overrides
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml \
-#    $(LOCAL_PATH)/configs/component-overrides_qti.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides_qti.xml
 
 # Context Hub
 PRODUCT_PACKAGES += \
@@ -211,17 +201,10 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.4.vendor \
     android.hardware.drm@1.4-service.clearkey
 
-# Dex
-PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := everything
-
 # DAC
 PRODUCT_PACKAGES += \
     QuadDACPanel \
     vendor.lge.hardware.audio.dac.control@1.0-service
-
-# Doze
-PRODUCT_PACKAGES += \
-    LGEDoze
 
 # Display
 PRODUCT_PACKAGES += \
@@ -253,16 +236,6 @@ PRODUCT_PACKAGES += \
 # Fingerprint
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service.lge_sdm845
-
-# FM packages
-#PRODUCT_PACKAGES += \
-#	libqcomfm_jni \
-#	android.hardware.broadcastradio@1.0-impl \
-#	FM2 \
-#	qcom.fmradio \
-#	qcom.fmradio.xml
-
-#PRODUCT_BOOT_JARS += qcom.fmradio
 
 # Freeform Multiwindow
 PRODUCT_COPY_FILES += \
@@ -534,14 +507,6 @@ PRODUCT_BOOT_JARS += \
 # Lights
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.lge_sdm845
-
-# LiveDisplay
-#PRODUCT_PACKAGES += \
-#    vendor.lineage.livedisplay@2.0-service.lge_sdm845
-
-# Touch
-#PRODUCT_PACKAGES += \
-#    vendor.lineage.touch@1.0-service.lge_sdm845
 
 # USB
 PRODUCT_PACKAGES += \
