@@ -23,21 +23,36 @@ COMMON_PATH := device/lge/sdm845-common
 PRODUCT_PLATFORM := sdm845
 
 PRODUCT_SOONG_NAMESPACES += \
-    $(COMMON_PATH)/bootctrl \
-    vendor/qcom/opensource/commonsys-intf/display
+    $(COMMON_PATH)/bootctrl
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(COMMON_PATH)/overlay \
-    $(COMMON_PATH)/overlay-evolution
+    $(COMMON_PATH)/overlay
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
 include build/make/target/product/iorap_large_memory_config.mk
 
+# Apex
+OVERRIDE_PRODUCT_COMPRESSED_APEX := false
+
 # Iorap
 PRODUCT_PACKAGES += \
     iorap-app-startup-runner
+
+# Enable dex pre-opt to speed up initial boot
+ifeq ($(HOST_OS),linux)
+  ifeq ($(WITH_DEXPREOPT),)
+    WITH_DEXPREOPT := true
+    ifneq ($(TARGET_BUILD_VARIANT),eng)
+      WITH_DEXPREOPT := true
+      WITH_DEXPREOPT_DEBUG_INFO := false
+      USE_DEX2OAT_DEBUG := false
+      DONT_DEXPREOPT_PREBUILTS := true
+      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
+    endif
+  endif
+endif
 
 # Properties
 TARGET_ODM_PROP += $(COMMON_PATH)/odm.prop

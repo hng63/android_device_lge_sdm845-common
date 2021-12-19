@@ -27,6 +27,7 @@
 #include <android-base/logging.h>
 #include <android-base/properties.h>
 #include <android-base/strings.h>
+#include "property_service.h"
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
@@ -50,15 +51,6 @@ void property_override(const std::string& name, const std::string& value) {
                        << "__system_property_add failed";
         }
     }
-}
-
-void property_override_multifp(char const buildfp[], char const systemfp[],
-	char const bootimagefp[], char const vendorfp[], char const value[])
-{
-	property_override(buildfp, value);
-	property_override(systemfp, value);
-	property_override(bootimagefp, value);
-	property_override(vendorfp, value);
 }
 
 void init_target_properties() {
@@ -139,10 +131,32 @@ void init_target_properties() {
     property_override("ro.oem_unlock_supported", "0");
 }
 
+void property_override_dual(char const system_prop[], char const vendor_prop[], char const value[])
+{
+	property_override(system_prop, value);
+	property_override(vendor_prop, value);
+}
+
+void load_dalvik_properties() {
+    struct sysinfo sys;
+
+    sysinfo(&sys);
+    if (sys.totalram > 7000ull * 1024 * 1024) {
+        // 6GB RAM
+		property_override_dual("dalvik.vm.heapstartsize", "dalvik.vm.heapstartsize", "16m");
+		property_override_dual("dalvik.vm.heaptargetutilization", "dalvik.vm.heaptargetutilization", "0.5");
+		property_override_dual("dalvik.vm.heapmaxfree", "dalvik.vm.heapmaxfree", "32m");
+    }
+
+    property_override_dual("dalvik.vm.heapgrowthlimit", "dalvik.vm.heapgrowthlimit", "256m");
+	property_override_dual("dalvik.vm.heapsize", "dalvik.vm.heapsize", "512m");
+	property_override_dual("dalvik.vm.heapminfree", "dalvik.vm.heapminfree", "8m");
+}
+
 void vendor_load_properties() {
-    LOG(INFO) << "Loading vendor specific properties";
+    //Loading vendor specific properties
     init_target_properties();
-    LOG(INFO) << "Loading Coral Fingerprint";
-	property_override_multifp("ro.build.fingerprint", "ro.system.build.fingerprint", "ro.bootimage.build.fingerprint",
-	    "ro.vendor.build.fingerprint", "google/redfin/redfin:11/RQ3A.211001.001/7641976:user/release-keys");
+
+    // Load dalvik config
+    load_dalvik_properties();
 }
