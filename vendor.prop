@@ -113,8 +113,8 @@ persist.vendor.bt.a2dp.aac_whitelist=false
 persist.vendor.qcom.bluetooth.soc=cherokee
 
 # Camera
-vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.google.android.GoogleCameraEng,com.android.camera2
-camera.disable_zsl_mode=1
+vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.lge.camera,com.lge.cinemagraph,com.lge.servicemenu
+camera.disable_zsl_mode=true
 
 # CNE
 persist.vendor.cne.feature=1
@@ -161,7 +161,6 @@ ro.vendor.use_data_netmgrd=true
 persist.vendor.radio.add_power_save=1
 persist.vendor.radio.rat_on=combine
 persist.vendor.radio.enableadvancedscan=false
-
 
 # Sensors
 persist.vendor.sensors.diag_buffer_mode=false
